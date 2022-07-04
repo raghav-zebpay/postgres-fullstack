@@ -39,8 +39,9 @@ db.connect((err) => {
 //----------------------- API CALLS DATA FETCH-----------------------
 
 async function ftx() {
-  // console.log("INSIDE FTX")
-  const arr = ["BTC/USDT", "ETH/USDT", "XRP/USDT"];
+  // console.log("INSIDE FTX")  BAT/USD
+  // const arr = ["BTC/USDT", "ETH/USDT", "XRP/USDT"];
+  const arr = ["BTC/USDT", "ETH/USDT", "XRP/USDT","BAT/USD"];
   const endpoint = "https://ftx.com/api/markets/";
   var data = [];
   await Promise.all(
@@ -50,7 +51,7 @@ async function ftx() {
         .get(url)
         .then((res) => {
           // console.log("GETTING DATA FROM FTX!!!")
-          // console.log(res.status)
+          // console.log(res.data)-> getting JS object 
           if (res != undefined && res.data != undefined) {
             var hel = res.data.result;
             // console.log(hel)
@@ -165,8 +166,8 @@ async function kraken() {
   return data;
 }
 
-async function coinbase() {
-  const arr = ["BTC-USDT", "ETH-USDT", "ADA-USDT"];
+async function coinbase() { //XRP-USD BAT-USD
+  const arr = ["BTC-USDT", "ETH-USDT", "ADA-USDT","XRP-USD","BAT-USD"];
   const endpoint = "https://api.exchange.coinbase.com/products/";
   const last_part = "/ticker";
 
@@ -709,7 +710,6 @@ app.get("/trades/:username", function (req, res) {
 
 app.post("/trades", function (req, res) {
   const Data = req.body;
-  //   JSON.parse(Data);
   var sql = `insert into trades(id,currency,exchange_name,price,quantity,execution,action,total)
      values(${Data.id},'${Data.currency}','${Data.exchange_name}',
      '${Data.price}','${Data.quantity}','${Data.execution}','${Data.action}','${Data.total}')`;
@@ -724,7 +724,7 @@ app.post("/trades", function (req, res) {
   //   console.log(Data.id)
 });
 
-//--------------------EXRTRA APIS ADDED--------------------------------
+//--------------------LOGIN AND REGISTER APIS ADDED--------------------------------
 
 app.get("/users", function (req, res) {
   var q = `select * from users`;
@@ -841,5 +841,5 @@ app.listen(PORT, function () {
   // coinbaseupdate();
   // krakenupdate()
   // time updated
-  // setInterval(callUpdates,30000);
+  setInterval(callUpdates,30000);
 });

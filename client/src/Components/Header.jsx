@@ -10,9 +10,7 @@ function Header(){
 
     return(
         <header>
-            <h1>Crypto Exchage Dashboard</h1>
-            {/* <button><NavLink to ="/">Logout</NavLink></button>
-             */}
+            <h1>Best Deals Dashboard</h1>
         </header>
     )
 }
