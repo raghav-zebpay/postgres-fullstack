@@ -19,11 +19,11 @@ function App() {
   return (
     <>
       <div>
-        <Header/>
+        <Header />
       </div>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Login />}/>
+          <Route path="/" element={<Login />} />
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/TransactionHist" element={<TransactionHist />} />
           <Route path="/register" element={<Register />} />

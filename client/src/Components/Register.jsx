@@ -34,8 +34,12 @@ export default function Register() {
       body: JSON.stringify(user),
       headers: { "Content-Type": "application/json" },
     }).then((res) => {
+      // console.log(res);
       if (res.status === 200) {
-        setPostRes("Registered Succesfully");
+        setPostRes("Registered Succesfully, Redirecting to Login Page...");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } else if (res.status === 400) {
         setPostRes("Username Already Exists!");
       } else {
@@ -69,11 +73,18 @@ export default function Register() {
           value={user.repassword}
         />
         <br></br>
-        <button type="submit" className="btn btn-warning">REGISTER</button>
+        <button type="submit" className="btn btn-warning">
+          REGISTER
+        </button>
       </form>
       <div>{PostRes}</div>
       <br></br>
-      <button  class="btn btn-outline-warning btn-lg" onClick={() => navigate("/")}>LOGIN</button>
+      <button
+        class="btn btn-outline-warning btn-lg"
+        onClick={() => navigate("/")}
+      >
+        LOGIN
+      </button>
     </>
   );
 }

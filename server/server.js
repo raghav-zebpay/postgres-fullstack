@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const axios = require("axios");
 const bodyParser = require("body-parser");
-const {Client}=require('pg')
+const { Client } = require("pg");
 //------------------------ DATABASE--------------------------------
 
 // used to send data to frontend
@@ -19,12 +19,12 @@ app.use(express.json());
 // });
 
 const db = new Client({
-    host: "practisedb-fresher.cdsamxevdhkl.ap-south-1.rds.amazonaws.com",
-    user: "team3",
-    password: "q2eMj@mwT7B6SQkjgY", // ENTER YOUR SQL ROOT PASSWORD...
-    database: "projects_db",
-    port:49218
-  });
+  host: "practisedb-fresher.cdsamxevdhkl.ap-south-1.rds.amazonaws.com",
+  user: "team3",
+  password: "q2eMj@mwT7B6SQkjgY", // ENTER YOUR SQL ROOT PASSWORD...
+  database: "projects_db",
+  port: 49218,
+});
 
 // Connect
 db.connect((err) => {
@@ -248,9 +248,9 @@ function binanceupdate() {
         // console.log(obj);
         delete obj.symbol;
         obj.exc = "Binance";
-        var ar=[];
-        ar.push(obj.id)
-        ar.push(obj.price)
+        var ar = [];
+        ar.push(obj.id);
+        ar.push(obj.price);
         ar.push(obj.exc);
         // ar.push(obj);
         console.log(ar);
@@ -539,11 +539,11 @@ app.get("/", function (req, res) {
 
   // -------store calls----------
   // UPDATE FUNCTIONS-> INITIAL INSETIONS
-//   binanceupdate();
-//   ftxupdate();
-//   geminiupdate();
-//   coinbaseupdate();
-//   krakenupdate()
+  //   binanceupdate();
+  //   ftxupdate();
+  //   geminiupdate();
+  //   coinbaseupdate();
+  //   krakenupdate()
   // -------store calls----------
 
   //----------update calls--------------
@@ -764,31 +764,60 @@ app.post("/login", function (req, res) {
 //   }
 // });
 
+// app.post("/register", function (req, res) {
+//   console.log(req.body);
+//   const username = req.body.username;
+//   const password = req.body.password;
+//   const repassword = req.body.repassword;
+//   console.log(username, password, repassword);
+//   var sql2 = `select * from users where username = '${username}'`;
+//   var sql = `insert into users(username,password) values ('${username}','${password}')`;
+//   db.query(sql2, function (err, result) {
+//     if (result) {
+//       console.log(result);
+//       res.send(400);
+//     } else if (password === repassword) {
+//       db.query(sql, function (err, result) {
+//         console.log("hello");
+//         if (err) {
+//           res.send("error");
+//         } else {
+//           res.send(200);
+//         }
+//       });
+//     } else {
+//       res.send(404);
+//     }
+//   });
+// });
+
 app.post("/register", function (req, res) {
-  console.log(req.body);
-  const username = req.body.username;
-  const password = req.body.password;
-  const repassword = req.body.repassword;
+  const { username, password, repassword } = req.body;
   console.log(username, password, repassword);
-  var sql2 = `select * from users where username = ?`;
-  var sql = `insert into users(username,password) values (?,?)`;
-  db.query(sql2, [username], function (err, result) {
-    if (result) {
-      res.send(400);
-    } else if (password === repassword) {
-      db.query(sql, [username, password], function (err, result) {
-        if (err) {
-          res.send("error");
-        } else {
-          res.send(200);
-        }
-      });
+  var q1 = `select * from users where username = '${username}'`;
+  db.query(q1, function (err, result) {
+    if (err) {
+      console.log(err);
     } else {
-      res.send(404);
+      // console.log(result);
+      if (result.rowCount) {
+        res.send(400);
+      }
     }
   });
+  var q2 = `insert into users(username,password) values ('${username}','${password}')`;
+  if (password === repassword) {
+    db.query(q2, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(200);
+      }
+    });
+  } else {
+    res.send(404);
+  }
 });
-
 //----------------------------------
 
 // -----------------START SERVER---------------------------
@@ -803,16 +832,14 @@ const PORT = process.env.PORT || 3001;
 
 // -----------------START SERVER---------------------------
 
-
-
-app.listen(PORT,function(){
-    const url=`http:localhost:${PORT}`
-    console.log(url);
-//  binanceupdate();
+app.listen(PORT, function () {
+  const url = `http:localhost:${PORT}`;
+  console.log(url);
+  //  binanceupdate();
   // ftxupdate();
   // geminiupdate();
   // coinbaseupdate();
   // krakenupdate()
-    // time updated
-    setInterval(callUpdates,30000);
-})
+  // time updated
+  // setInterval(callUpdates,30000);
+});
