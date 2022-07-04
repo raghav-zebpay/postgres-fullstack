@@ -841,5 +841,5 @@ app.listen(PORT, function () {
   // coinbaseupdate();
   // krakenupdate()
   // time updated
-  setInterval(callUpdates,30000);
+  setInterval(callUpdates,5000);
 });

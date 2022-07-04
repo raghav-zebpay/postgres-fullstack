@@ -38,6 +38,24 @@ export default function BasicCard(props) {
         });
     },[]);
 
+    async function data_getter(){
+      await axios.get(`/${props.coin}`)
+      .then((res) => {
+        setpairprice(res.data.rows.filter(price=>price.exc===props.exchange))
+        console.log(" trade data");
+        console.log(res);
+        console.log(props.exchange);
+        // console.log(res.data.filter(price=>price.exc===props.exchange));
+        // setPrice(pairprice[0].price);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+
+    setTimeout(data_getter,5000);
+
+
    function submit(event){
       //  event.preventDefault();
         var date =new Date()
@@ -49,17 +67,6 @@ export default function BasicCard(props) {
       ('00' + date.getUTCHours()).slice(-2)+ 
       ('00' + date.getUTCMinutes()).slice(-2) + 
       ('00' + date.getUTCSeconds()).slice(-2);
-
-        // var obj={
-        //   id:date,
-        //   currency:props.coin,
-        //   exchange_name:props.exchange,
-        //   price:price,
-        //   quantity:parseInt(val),
-        //   execution:"sucess"
-        // }
-
-        // console.log(obj);
 
       if(parseInt(val)>0){
        axios.post("http://localhost:3001/trades",
@@ -115,8 +122,9 @@ export default function BasicCard(props) {
         </Typography>
         :null
         }
-        {console.log(pairprice[0])}
-        <Typography>Total amount to be paid = {price*val} </Typography>
+        {/* {console.log(pairprice[0],"hello")} */}
+        {val>0?<Typography>Total amount to be paid = {pairprice[0].price*val} </Typography>:null}
+        {/* <Typography>Total amount to be paid = {price*val} </Typography> */}
         
         <br></br>
         

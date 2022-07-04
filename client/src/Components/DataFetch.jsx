@@ -17,6 +17,7 @@ function DataFetch(props){
 
 // getting data from databade
    useEffect(()=>{
+    // function data_getter(){
         axios.get(`/${props.id}`)
         .then(res=>{
             // console.log(res);
@@ -25,7 +26,39 @@ function DataFetch(props){
         .catch(err=>{
             console.log(err);
         })
-    })
+    // }
+
+    },[])
+
+
+
+    async function data_getter(){
+        await axios.get(`/${props.id}`)
+        .then(res=>{
+            // console.log(res);
+            setPost(res.data.rows);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+        // price_updater();
+    }
+
+    setTimeout(data_getter,5000);
+
+
+    function price_updater(){
+        let obj=post.find( o => o.exc===exchage);
+        if(obj){
+            setPrice(obj.price);
+        }
+    }
+
+    setTimeout(price_updater,5000);
+
+
+    // setTimeout(price_updater,3000);
 
     // React.useEffect(()=>{
     //         console.log(price);
@@ -51,10 +84,22 @@ function DataFetch(props){
     // },[post])
 
     // the price is not getting updated 
-    function func(hell){
-        console.log("it has been called")
-        console.log("the price is "+hell +" && "+price)
+    
+    
+    function cmp(a,b){
+        if(a.price<b.price){
+       return -1
+       }
+       return 0;
+       
     }
+
+    if(post){
+        // console.log("heelo world")
+        post.sort(cmp);
+    }
+
+    // console.log(post);
 
     return(
         <div>         
@@ -81,15 +126,15 @@ function DataFetch(props){
                                 setText("Buy")
                                 setExchange(x.exc)
                                 setPrice(x.price)
-                                setTimeout(setPrice(x.price),1);
-                    // console.log(x.price);
+                                 // console.log(x.price);
                             }}> Buy</button>
                             <button type="button" className="btn btn-outline-danger mari" onClick={()=>{
                                 setClick(true);
                                 setText("Sell")
                                 setExchange(x.exc)
                                 setPrice(x.price)
-                                func(x.price);
+                                // func(x.price);
+                                // setTimeout(setPrice(x.price),1000);
                             }}>Sell</button>
                             </td>
                         {/* {console.log(x.price)} */}
@@ -97,8 +142,8 @@ function DataFetch(props){
                     ))}
                 </tbody>
             </table>
-           {/* { console.log(x.price)} */}
-            {click===true && text.length>0? <Trade action={text} coin={props.id} exchange={exchage} price={pp}/>:null}
+           {/* { console.log(price)} */}
+            {click===true && text.length>0? <Trade action={text} coin={props.id} exchange={exchage} price={price}/>:null}
         </div>
     )
 }
