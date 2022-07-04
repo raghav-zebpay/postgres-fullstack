@@ -31,7 +31,7 @@ function DataFetch(props){
     },[])
 
 
-
+// helping to update data 
     async function data_getter(){
         await axios.get(`/${props.id}`)
         .then(res=>{
@@ -42,48 +42,8 @@ function DataFetch(props){
             console.log(err);
         })
 
-        // price_updater();
     }
-
     setTimeout(data_getter,5000);
-
-
-    function price_updater(){
-        let obj=post.find( o => o.exc===exchage);
-        if(obj){
-            setPrice(obj.price);
-        }
-    }
-
-    setTimeout(price_updater,5000);
-
-
-    // setTimeout(price_updater,3000);
-
-    // React.useEffect(()=>{
-    //         console.log(price);
-    // },[post])
-
-        // React.useEffect(()=>{
-        // const prevdata=localStorage.getItem("coins-data")
-        // if(prevdata){
-        //     setPost(JSON.parse(prevdata))
-        //     console.log(JSON.parse(prevdata))
-        // }
-        // // const cl=localStorage.getItem("cl");
-        // // if(cl){
-        // //     setClick(JSON.parse(cl));
-        // //     console.log(cl);
-        // // }
-    // },[post])
-
-    // React.useEffect(()=>{
-    //     console.log("DataFEtc")
-    //     localStorage.setItem("coins-data",JSON.stringify(post))
-    //     localStorage.setItem("cl",JSON.stringify(click))
-    // },[post])
-
-    // the price is not getting updated 
     
     
     function cmp(a,b){

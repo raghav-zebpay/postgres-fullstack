@@ -24,6 +24,7 @@ export default function BasicCard(props) {
       setPrice(props.price);
     })
 
+    // getting data from the backend server 
     React.useEffect(() => {
       axios.get(`/${props.coin}`)
         .then((res) => {
@@ -38,6 +39,7 @@ export default function BasicCard(props) {
         });
     },[]);
 
+    // updating data 
     async function data_getter(){
       await axios.get(`/${props.coin}`)
       .then((res) => {
@@ -52,7 +54,7 @@ export default function BasicCard(props) {
         console.log(err);
       });
     }
-
+// update callback
     setTimeout(data_getter,5000);
 
 
