@@ -27,7 +27,7 @@ export default function BasicCard(props) {
     React.useEffect(() => {
       axios.get(`/${props.coin}`)
         .then((res) => {
-          setpairprice(res.data.filter(price=>price.exc===props.exchange))
+          setpairprice(res.data.rows.filter(price=>price.exc===props.exchange))
           console.log(" trade data");
           console.log(res);
           console.log(props.exchange);
