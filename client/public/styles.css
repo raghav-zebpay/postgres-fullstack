@@ -1,0 +1,109 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html {
+    font-family: "Montserrat", sans-serif;
+  }
+  body {
+    background: #eee;
+    padding: 0 16px;
+    text-align: center;
+  }
+  
+  header {
+    background-color: #f5ba13;
+    margin: auto -16px;
+    padding: 16px 32px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  header h1 {
+    color: #fff;
+    font-family: "McLaren", cursive;
+    font-weight: 200;
+  }
+  
+  /* footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+  }
+  
+  footer p {
+    color: #ccc;
+  } */
+
+  th{
+    padding-right: 20px;
+  }
+
+  .aln{
+    text-align: center;
+  }
+  
+  form {
+    width: 480px;
+    margin: 30px auto 20px auto;
+    background: #fff;
+    padding: 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 5px rgb(138, 137, 137);
+  }
+  form input,
+  form textarea {
+    width: 100%;
+    border: none;
+    padding: 4px;
+    outline: none;
+    font-size: 1.2em;
+    font-family: inherit;
+    resize: none;
+  }
+ 
+  .bt{
+        margin: 10px;
+  }
+
+  span{
+    margin-inline: 20px;
+  }
+
+  .mari{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    width: 70px;
+  }
+
+  .tablemargin{
+    margin-bottom: 10px;
+  }
+
+  .col{
+    color: white;
+  }
+
+  .tabletext{
+    text-align: left;
+  }
+
+  .tablecolor{
+    background-color: #1B2430;
+    color: whitesmoke;
+  }
+
+  .heading{
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .btmargin{
+    margin-top: 2rem;
+  }
+  .button{
+    float: none;
+  }
