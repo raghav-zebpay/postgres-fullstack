@@ -1,8 +1,10 @@
 import React from "react";
 import DataFetch from "./DataFetch";
-import {NavLink} from "react-router-dom";
+import {NavLink,useNavigate} from "react-router-dom";
 
 function Button(){
+
+    const navigate=useNavigate();
     
     // const [btc,setbtc]=React.useState(false)
     // const [eth,seteth]=React.useState(false)
@@ -33,6 +35,7 @@ function Button(){
          <button type="button" className="btn btn-primary bt btmargin" onClick={()=>setCoin("bat")}>BAT-USDT</button>
          <button type="button" className="btn btn-primary bt btmargin" onClick={()=>setCoin("xrp")}>XRP-USDT</button>
          <button type="button" className="btn btn-primary bt btmargin" onClick={()=>setCoin("ada")}>ADA-USDT</button>
+         <button type="button" className="btn btn-dark bt btmargin" style={{float:"right"}} onClick={()=>{navigate("/")}} >Logout</button>
          {coin==="btc"?<DataFetch id="btc"/>:""}
          {coin==="eth"?<DataFetch id="eth"/>:""}
          {coin==="bat"?<DataFetch id="bat"/>:""}
