@@ -238,7 +238,7 @@ function helper() {
 
 // -------------FUNCTIONS FOR STORING INITAL DATA--------------------------------
 
-function binanceupdate() {
+function binanceinsert() {
   const res = binance();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   // recieving data from promise ->binance();
@@ -271,7 +271,7 @@ function binanceupdate() {
   });
 }
 
-function ftxupdate() {
+function ftxinsert() {
   const res = ftx();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -301,7 +301,7 @@ function ftxupdate() {
   });
 }
 
-function geminiupdate() {
+function geminiinsert() {
   const res = gemini();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -331,7 +331,7 @@ function geminiupdate() {
   });
 }
 
-function coinbaseupdate() {
+function coinbaseinsert() {
   const res = coinbase();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -361,7 +361,7 @@ function coinbaseupdate() {
   });
 }
 
-function krakenupdate() {
+function krakeninsert() {
   const res = kraken();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -395,7 +395,7 @@ function krakenupdate() {
 
 // ---------------------FUNCTIONS FOR UPDATING DATA--------------------------------
 
-function binanceup() {
+function binanceupdate() {
   const res = binance();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -420,7 +420,7 @@ function binanceup() {
   });
 }
 
-function ftxup() {
+function ftxupdate() {
   const res = ftx();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -445,7 +445,7 @@ function ftxup() {
   });
 }
 
-function geminiup() {
+function geminiupdate() {
   const res = gemini();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -470,7 +470,7 @@ function geminiup() {
   });
 }
 
-function coinbaseup() {
+function coinbaseupdate() {
   const res = coinbase();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -495,7 +495,7 @@ function coinbaseup() {
   });
 }
 
-function krakenup() {
+function krakenupdate() {
   const res = kraken();
   const arr = ["BTC", "ETH", "BAT", "XRP", "ADA"];
   res.then((data) => {
@@ -525,11 +525,11 @@ function krakenup() {
 // ---------------------CALL FUNCTION TO INVOKE UPDATES--------------------------
 
 function callUpdates() {
-  binanceup();
-  ftxup();
-  geminiup();
-  coinbaseup();
-  krakenup();
+  binanceupdate();
+  ftxupdate();
+  geminiupdate();
+  coinbaseupdate();
+  krakenupdate();
 }
 
 // ---------------------CALL FUNCTION TO INVOKE UPDATES--------------------------
@@ -564,7 +564,7 @@ app.get("/", function (req, res) {
 
 // -----------------GET ROUTE TO CHECK BTC PRICES-------------------
 app.get("/btc", function (req, res) {
-  var sql = `select * from coins where id='BTC'`;
+  var sql = `select * from coins where id='BTC' order by price asc`;
   const q = db.query(sql, (err, result) => {
     if (err) {
       // throw err;
@@ -583,7 +583,7 @@ app.get("/btc", function (req, res) {
 // -----------------GET ROUTE TO CHECK ETH PRICES-------------------
 
 app.get("/eth", function (req, res) {
-  var sql = `select * from coins where id='ETH'`;
+  var sql = `select * from coins where id='ETH' order by price asc`;
   const q = db.query(sql, (err, result) => {
     if (err) {
       // throw err;
@@ -602,7 +602,7 @@ app.get("/eth", function (req, res) {
 // -----------------GET ROUTE TO CHECK BAT PRICES-------------------
 
 app.get("/bat", function (req, res) {
-  var sql = `select * from coins where id='BAT'`;
+  var sql = `select * from coins where id='BAT' order by price asc`;
   const q = db.query(sql, (err, result) => {
     if (err) {
       // throw err;
@@ -621,7 +621,7 @@ app.get("/bat", function (req, res) {
 // -----------------GET ROUTE TO CHECK XRP PRICES-------------------
 
 app.get("/xrp", function (req, res) {
-  var sql = `select * from coins where id='XRP'`;
+  var sql = `select * from coins where id='XRP' order by price asc`;
   const q = db.query(sql, (err, result) => {
     if (err) {
       // throw err;
@@ -640,7 +640,7 @@ app.get("/xrp", function (req, res) {
 // -----------------GET ROUTE TO CHECK ADA PRICES-------------------
 
 app.get("/ada", function (req, res) {
-  var sql = `select * from coins where id='ADA'`;
+  var sql = `select * from coins where id='ADA' order by price asc`;
   const q = db.query(sql, (err, result) => {
     if (err) {
       // throw err;
@@ -686,7 +686,7 @@ app.get("/ada", function (req, res) {
 // --------------TRADE HISTORY-------------------------
 app.get("/trades/", function (req, res) {
   // const user = req.params.username;
-  var sql = `select * from trades`;
+  var sql = `select * from trades order by id desc`;
   db.query(sql, function (err, result) {
     if (err) {
       // throw err;
@@ -835,11 +835,11 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, function () {
   const url = `http:localhost:${PORT}`;
   console.log(url);
-  //  binanceupdate();
-  // ftxupdate();
-  // geminiupdate();
-  // coinbaseupdate();
-  // krakenupdate()
-  // time updated
+  //  binanceinsert();
+  // ftxinsert();
+  // geminiinsert();
+  // coinbaseinsert();
+  // krakeninsert()
+  // updating the backend server
   setInterval(callUpdates,5000);
 });

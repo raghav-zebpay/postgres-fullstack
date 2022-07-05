@@ -7,14 +7,8 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 
-// comments addded
+
 function App() {
-  // const[details,setDetails]=React.useState([]);
-  // const [obj,setObj]=React.useState({
-  //     coin:"",
-  //     price:"",
-  //     exchange:""
-  // })
 
   return (
     <>

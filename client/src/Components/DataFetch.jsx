@@ -45,22 +45,6 @@ function DataFetch(props){
     }
     setTimeout(data_getter,5000);
     
-    
-    function cmp(a,b){
-        if(a.price<b.price){
-       return -1
-       }
-       return 0;
-       
-    }
-
-    if(post){
-        // console.log("heelo world")
-        post.sort(cmp);
-    }
-
-    // console.log(post);
-
     return(
         <div>         
             <table className="table" style={{marginTop:"1.5rem"}}>
